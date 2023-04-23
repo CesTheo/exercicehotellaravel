@@ -26,5 +26,11 @@ class Location extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    protected $fillable = [
+        'nom',
+        'description'
+    ];
+
+
 
 }
