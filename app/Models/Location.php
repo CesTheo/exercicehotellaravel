@@ -16,9 +16,9 @@ class Location extends Model
         return $this->hasOne(Image::class);
     }
 
-    public function categories () : BelongsToMany
+    public function categories() : BelongsToMany
     {
-        return $this->belongsToMany(Categorie::class);
+        return $this->belongsToMany(Categorie::class, 'location_categorie');
     }
 
     public function reservations () : HasMany

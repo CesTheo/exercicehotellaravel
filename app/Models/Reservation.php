@@ -11,6 +11,14 @@ class Reservation extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'start_at',
+        'end_at',
+        'user_id',
+        'location_id',
+    ];
+
     public function location () : BelongsTo {
         return $this->belongsTo(Location::class);
     }

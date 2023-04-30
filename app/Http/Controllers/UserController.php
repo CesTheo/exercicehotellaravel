@@ -16,6 +16,14 @@ class UserController extends Controller
             'email' => 'theo.maudet@icloud.com',
             'password' => Hash::make('theo'),
         ]);
+
+        User::create([
+            'prenom' => 'admin',
+            'nom' => 'admin',
+            'email' => 'admin@icloud.com',
+            'admin' => true,
+            'password' => Hash::make('admin'),
+        ]);
         return 'yes';
     }
 }

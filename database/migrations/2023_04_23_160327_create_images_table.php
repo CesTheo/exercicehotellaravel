@@ -16,7 +16,6 @@ return new class extends Migration
             $table->text('base64_image');
             $table->unsignedBigInteger('location_id')->unique();
             $table->timestamps();
-            //Relation 1:1
             $table->foreign('location_id')->references('id')->on('locations')->cascadeOnDelete();
         });
     }

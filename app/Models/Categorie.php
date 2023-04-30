@@ -10,6 +10,10 @@ class Categorie extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nom',
+    ];
+
     public function Location (): BelongsToMany {
         return $this->belongsToMany(Location::class);
     }

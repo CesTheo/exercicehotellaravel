@@ -21,12 +21,10 @@ class LocationController extends Controller
     }
 
     public function getById(Request $request){
-        $location = Location::find($request->id);
-        return $location;
+        return $this->locationService->getById($request->id);
     }
 
     public function createLocation(Request $request){
-
         $newLocaltion = Location::create([
             'nom' => $request->nom,
             'description' => $request->description
