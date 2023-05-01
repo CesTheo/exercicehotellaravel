@@ -2,54 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categorie;
-use App\Models\Location;
+use App\Services\CategorieService;
 use Illuminate\Http\Request;
 
 class CategorieController extends Controller
 {
+    protected $categorieService;
+
+    public function __construct(CategorieService $categorieService){
+        $this->categorieService = $categorieService;
+    }
+
     public function create(Request $request){
-        $newCategorie = Categorie::create([
-            'nom' => $request->name,
-        ]);
-        dd($newCategorie);
+        return $this->categorieService->create($request);
+    }
+
+    public function delete(Request $request){
+        return $this->categorieService->delete($request);
     }
 
     public function AddToLocation(Request $request){
-        $id_location = $request->id_location;
-        $id_categorie = $request->id_categorie;
-
-        $location = Location::findOrFail($id_location);
-
-        $location->categories()->attach($id_categorie);
-
-        return response()->json(['message' => 'Catégorie ajoutée à la location avec succès']);
+        return $this->categorieService->AddToLocation($request);
     }
 
     public function getLocationsByCategorie(Request $request){
-        $categorieId = $request->id;
-
-        $categorie = Categorie::where('id', $categorieId)->first();
-
-        if (!$categorie) {
-            return response()->json(['message' => 'Catégorie non trouvée'], 404);
-        }
-
-        $locations = Location::whereHas('categories', function ($query) use ($categorie) {
-            $query->where('categorie_id', $categorie->id);
-        })->get();
-
-        return response()->json($locations);
+        return $this->categorieService->getLocationsByCategorie($request);
     }
 
     public function getLocationsByCategories(Request $request){
-        $categorieIds = $request->categorie_ids;
+        return $this->categorieService->getLocationsByCategories($request);
+    }
 
-        $locations = Location::whereHas('categories', function ($query) use ($categorieIds) {
-            $query->whereIn('categorie_id', $categorieIds);
-        }, '=', count($categorieIds))->get();
-    
-        return response()->json($locations);
-    
+    public function getAllCategories(){
+        return $this->categorieService->getAllCategories();
+    }
+
+    public function resetCategorieToLocation(Request $request){
+        return $this->categorieService->resetCategorieToLocation($request);
     }
 }

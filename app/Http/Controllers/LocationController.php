@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
 use App\Services\LocationService;
 use Illuminate\Http\Request;
 
@@ -11,8 +10,7 @@ class LocationController extends Controller
 
     protected $locationService;
 
-    public function __construct(LocationService $locationService)
-    {
+    public function __construct(LocationService $locationService){
         $this->locationService = $locationService;
     }
 
@@ -25,17 +23,15 @@ class LocationController extends Controller
     }
 
     public function createLocation(Request $request){
-        $newLocaltion = Location::create([
-            'nom' => $request->nom,
-            'description' => $request->description
-        ]);
-
-        dd($newLocaltion);
+        return $this->locationService->createLocation($request);
     }
 
 
     public function deleteLocation(Request $request){
-        $location = Location::find($request->id)->delete();
-        dd($location);
+        return $this->locationService->deleteLocation($request);
+    }
+
+    public function modifyLocation(Request $request){
+        return $this->locationService->modifyLocation($request);
     }
 }

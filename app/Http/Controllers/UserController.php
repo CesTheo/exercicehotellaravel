@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    //
+    //Controller test pour crée des fake identifiants
     public function index(){
         User::create([
             'prenom' => 'Théo',
@@ -24,6 +24,6 @@ class UserController extends Controller
             'admin' => true,
             'password' => Hash::make('admin'),
         ]);
-        return 'yes';
+        return 'user de base test prét';
     }
 }
